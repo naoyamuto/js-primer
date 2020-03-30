@@ -1,7 +1,11 @@
 function main() {
   fetchUserInfo("naoyamuto")
+    // ここではJSONオブジェクトで解決されるPromise
+    .then((userInfo) => createView(userInfo))
+    // ここではHTML文字列で解決されるPromise
+    .then((view) => displayView(view))
+    // Promiseチェーンでエラーがあった場合はキャッチされる
     .catch(error => {
-      // Promiseチェーンの中で発生したエラーを受け取る
       console.error(`エラーが発生しました (${error})`);
     });
 }
@@ -15,10 +19,8 @@ function fetchUserInfo(userId) {
         // エラーレスポンスからRejectedなPromiseを作成して返す
         return Promise.reject(new Error(`${response.status}: ${response.statusText}`));
       } else {
-        return response.json().then(userInfo => {
-          const view = createView(userInfo);
-          displayView(view);
-        });
+        // JSONオブジェクトで解決されるPromiseを返す
+        return response.json();
       }
     });
 }
