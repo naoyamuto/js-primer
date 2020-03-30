@@ -5,7 +5,7 @@ async function main() {
       const view = createView(userInfo);
       displayView(view);
   } catch (error) {
-      console.error(`エラーが発生しまgit sした (${error})`);
+      console.error(`エラーが発生しました (${error})`);
   }
 }
 
